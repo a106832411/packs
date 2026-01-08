@@ -61,7 +61,7 @@ function LoginContent() {
   const [registrationSuccess, setRegistrationSuccess] =
     useState(!!isSuccessMessage);
   const [registrationEmail, setRegistrationEmail] = useState('');
-  
+
   // Expired link state
   const [linkExpired, setLinkExpired] = useState(isExpired);
   const [expiredEmailState, setExpiredEmailState] = useState(expiredEmail);
@@ -94,7 +94,7 @@ function LoginContent() {
 
     const finalReturnUrl = returnUrl || '/dashboard';
     formData.append('returnUrl', finalReturnUrl);
-    formData.append('origin', window.location.origin);
+    formData.append('origin', process.env.NEXT_PUBLIC_URL || window.location.origin);
     formData.append('acceptedTerms', acceptedTerms.toString());
 
     const result = await signUp(prevState, formData);
@@ -125,10 +125,10 @@ function LoginContent() {
   const getEmailProviderInfo = (email: string) => {
     const domain = email.split('@')[1]?.toLowerCase();
     if (!domain) return null;
-    
+
     // Detect mobile device for deep links
     const isMobileDevice = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
+
     // Provider config with web and mobile URLs
     // Mobile URLs use deep links that open native apps if installed
     const providers: { [key: string]: { name: string; webUrl: string; mobileUrl: string } } = {
@@ -163,10 +163,10 @@ function LoginContent() {
       'web.de': { name: 'WEB.DE', webUrl: 'https://web.de', mobileUrl: 'https://web.de' },
       't-online.de': { name: 'T-Online', webUrl: 'https://email.t-online.de', mobileUrl: 'https://email.t-online.de' },
     };
-    
+
     const provider = providers[domain];
     if (!provider) return null;
-    
+
     return {
       name: provider.name,
       url: isMobileDevice ? provider.mobileUrl : provider.webUrl,
@@ -181,13 +181,13 @@ function LoginContent() {
       toast.error(t('pleaseEnterValidEmail'));
       return {};
     }
-    
+
     setRegistrationEmail(email);
 
     const finalReturnUrl = returnUrl || '/dashboard';
     formData.append('email', email);
     formData.append('returnUrl', finalReturnUrl);
-    formData.append('origin', window.location.origin);
+    formData.append('origin', process.env.NEXT_PUBLIC_URL || window.location.origin);
     // If email is already known from expired link, assume terms were already accepted
     formData.append('acceptedTerms', 'true');
 
@@ -428,15 +428,15 @@ function LoginContent() {
                   required
                   className="h-5 w-5"
                 />
-                <label 
-                  htmlFor="gdprConsent" 
+                <label
+                  htmlFor="gdprConsent"
                   className="text-xs text-muted-foreground leading-relaxed cursor-pointer select-none flex-1"
                 >
                   {t.rich('acceptPrivacyTerms', {
                     privacyPolicy: (chunks) => {
                       return (
-                        <a 
-                          href="https://www.kortix.com/legal?tab=privacy" 
+                        <a
+                          href="https://www.kortix.com/legal?tab=privacy"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="hover:underline underline-offset-2 text-primary"
@@ -448,7 +448,7 @@ function LoginContent() {
                     },
                     termsOfService: (chunks) => {
                       return (
-                        <a 
+                        <a
                           href="https://www.kortix.com/legal?tab=terms"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -483,7 +483,7 @@ function LoginContent() {
               <p className="text-xs text-muted-foreground text-center">
                 {t('magicLinkExplanation')}
               </p>
-              
+
               {/* Minimal Referral Link */}
               {!referralCodeParam && (
                 <button
@@ -495,7 +495,7 @@ function LoginContent() {
                 </button>
               )}
             </form>
-            
+
             {/* Referral Code Dialog */}
             <ReferralCodeDialog
               open={showReferralDialog}

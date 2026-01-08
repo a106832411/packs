@@ -21,15 +21,15 @@ export default function GoogleSignIn({ returnUrl, referralCode }: GoogleSignInPr
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
-      
+
       if (referralCode) {
         document.cookie = `pending-referral-code=${referralCode.trim().toUpperCase()}; path=/; max-age=600; SameSite=Lax`;
       }
-      
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ''
+          redirectTo: `${process.env.NEXT_PUBLIC_URL || window.location.origin}/auth/callback${returnUrl ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ''
             }`,
         },
       });

@@ -56,7 +56,7 @@ export default function ActivateTrialPage() {
         trialStatus.trial_status === 'expired' ||
         trialStatus.trial_status === 'cancelled' ||
         trialStatus.trial_status === 'converted';
-      
+
       // ✅ Use tier_key and allow free tier
       const tierKey = accountState?.subscription?.tier_key || accountState?.tier?.name;
       const hasActiveSubscription = tierKey && tierKey !== 'none';
@@ -72,8 +72,8 @@ export default function ActivateTrialPage() {
   const handleStartTrial = async () => {
     try {
       const result = await startTrialMutation.mutateAsync({
-        success_url: `${window.location.origin}/dashboard?trial=started`,
-        cancel_url: `${window.location.origin}/activate-trial`,
+        success_url: `${process.env.NEXT_PUBLIC_URL || window.location.origin}/dashboard?trial=started`,
+        cancel_url: `${process.env.NEXT_PUBLIC_URL || window.location.origin}/activate-trial`,
       });
 
       if (result.checkout_url) {

@@ -29,10 +29,10 @@ export function PlanSelectionModal({
     creditsExhausted = false,
     upgradeReason: controlledUpgradeReason,
 }: PlanSelectionModalProps) {
-    const defaultReturnUrl = typeof window !== 'undefined' ? `${window.location.origin}/dashboard?subscription=success` : '/';
-    
+    const defaultReturnUrl = typeof window !== 'undefined' ? `${process.env.NEXT_PUBLIC_URL || window.location.origin}/dashboard?subscription=success` : '/';
+
     const { isOpen: storeIsOpen, customTitle: storeCustomTitle, returnUrl: storeReturnUrl, closePricingModal, isAlert: storeIsAlert, alertTitle: storeAlertTitle, alertSubtitle: storeAlertSubtitle } = usePricingModalStore();
-    
+
     const isOpen = controlledOpen !== undefined ? controlledOpen : storeIsOpen;
     const onOpenChange = controlledOnOpenChange || ((open: boolean) => !open && closePricingModal());
     const returnUrl = controlledReturnUrl || storeReturnUrl || defaultReturnUrl;
@@ -50,7 +50,7 @@ export function PlanSelectionModal({
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
-            <DialogContent 
+            <DialogContent
                 className={cn(
                     "max-w-[100vw] w-full h-full max-h-[100vh] p-0 gap-0 overflow-hidden",
                     "rounded-none border-0",
@@ -66,11 +66,11 @@ export function PlanSelectionModal({
                 </DialogDescription>
                 <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 pointer-events-none bg-background/80 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none">
                     <div className="flex-1" />
-                    
+
                     <div className="absolute -translate-y-1/2 top-1/2 left-1/2 -translate-x-1/2 pointer-events-none">
                         <KortixLogo size={20} variant="logomark" />
                     </div>
-                    
+
                     <div className="flex-1 flex justify-end pointer-events-auto">
                         <Button
                             variant="ghost"

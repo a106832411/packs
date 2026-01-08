@@ -53,7 +53,7 @@ export default function SubscriptionRequiredPage() {
         !(subscriptionData.subscription as any).cancel_at_period_end;
 
       const hasActiveTrial = subscriptionData.subscription?.is_trial === true;
-      
+
       // ✅ Use tier_key for consistency
       const tierKey = subscriptionData.subscription?.tier_key || subscriptionData.tier?.name;
       const hasValidTier = tierKey && tierKey !== 'none';
@@ -133,7 +133,7 @@ export default function SubscriptionRequiredPage() {
           </div>
         }>
           <PricingSection
-            returnUrl={`${typeof window !== 'undefined' ? window.location.origin : ''}/dashboard?subscription=activated`}
+            returnUrl={`${typeof window !== 'undefined' ? (process.env.NEXT_PUBLIC_URL || window.location.origin) : ''}/dashboard?subscription=activated`}
             showTitleAndTabs={false}
             onSubscriptionUpdate={handleSubscriptionUpdate}
           />
