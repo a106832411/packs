@@ -152,8 +152,8 @@ export function DashboardContent() {
   const isSunaAgent = isLoadingAgents
     ? true // Show Suna modes while loading
     : selectedAgent?.metadata?.is_suna_default ||
-      (!selectedAgentId && sunaAgent !== undefined) ||
-      false;
+    (!selectedAgentId && sunaAgent !== undefined) ||
+    false;
 
   const threadQuery = useThreadQuery(initiatedThreadId || '');
   const { data: accountState, isLoading: isAccountStateLoading } =
@@ -453,7 +453,7 @@ export function DashboardContent() {
       </Suspense>
 
       <div className="flex flex-col h-screen w-full overflow-hidden relative">
-        <div className="absolute flex items-center gap-2 top-4 right-4">
+        {/* <div className="absolute flex items-center gap-2 top-4 right-4">
           <NotificationDropdown />
           <Suspense
             fallback={
@@ -463,7 +463,7 @@ export function DashboardContent() {
             <CreditsDisplay />
           </Suspense>
           <UsageLimitsPopover />
-        </div>
+        </div> */}
 
         <div className="flex-1 overflow-y-auto">
           <div className="min-h-full flex flex-col">
@@ -513,7 +513,7 @@ export function DashboardContent() {
                       <div className="flex flex-col items-center text-center w-full">
                         <p className="tracking-tight text-2xl sm:text-2xl md:text-3xl font-normal text-foreground/90">
                           {t('whatWouldYouLike')}
-                          
+
                         </p>
                       </div>
 
@@ -555,36 +555,6 @@ export function DashboardContent() {
                                 time: formatTimeUntilRefresh(
                                   dailyCreditsInfo!.seconds_until_refresh!,
                                 ),
-                              })}
-                            </span>
-                            <div className="flex items-center -mb-3.5">
-                              <Button
-                                size="sm"
-                                className="h-6 text-xs"
-                                onClick={() =>
-                                  pricingModalStore.openPricingModal()
-                                }
-                              >
-                                {tCommon('upgrade')}
-                              </Button>
-                            </div>
-                          </div>
-                        )}
-
-                        {alertType === 'thread_limit' && (
-                          <div
-                            className="w-full h-16 p-2 px-4 dark:bg-amber-500/5 bg-amber-500/10 dark:border-amber-500/10 border-amber-700/10 border text-white rounded-b-3xl flex items-center justify-between overflow-hidden"
-                            style={{
-                              marginTop: '-40px',
-                              transition:
-                                'margin-top 300ms ease-in-out, opacity 300ms ease-in-out',
-                            }}
-                          >
-                            <span className="-mb-3.5 dark:text-amber-500 text-amber-700 text-sm">
-                              {t('limitsExceeded', {
-                                current:
-                                  accountState?.limits?.threads?.current ?? 0,
-                                limit: accountState?.limits?.threads?.max ?? 0,
                               })}
                             </span>
                             <div className="flex items-center -mb-3.5">

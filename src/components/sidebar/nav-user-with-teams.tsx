@@ -207,7 +207,7 @@ export function NavUserWithTeams({
           {/* Buttons Container - Above user card */}
           <div className="absolute bottom-full left-0 right-0 mb-2 px-0 group-data-[collapsible=icon]:hidden z-50 flex flex-col gap-2">
             {/* Referral Button - Above Upgrade */}
-            {!isProductionMode() && (
+            {/* {!isProductionMode() && (
               <Button
                 onClick={openReferralDialog}
                 variant="outline"
@@ -218,7 +218,7 @@ export function NavUserWithTeams({
                 <span className="text-sm flex-1 text-left">{t('referAndEarn')}</span>
                 <span className="text-xs font-semibold text-primary flex-shrink-0">+400</span>
               </Button>
-            )}
+            )} */}
             {/* Upgrade Button - Closest to user card */}
             {isFreeTier && (
               <Button

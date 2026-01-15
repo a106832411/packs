@@ -163,9 +163,9 @@ export default function DashboardLayoutContent({
     >
       <div className="relative h-full">
         {/* Site-wide welcome bonus banner for free tier users */}
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <WelcomeBonusBanner />
-        </Suspense>
+        </Suspense> */}
         
         <Suspense fallback={null}>
           <OnboardingProvider>
